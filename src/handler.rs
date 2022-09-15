@@ -1,17 +1,19 @@
+use crate::utils::*;
 use serenity::async_trait;
 use serenity::model::channel::Message;
 use serenity::model::gateway::Ready;
 use serenity::prelude::*;
+
+use crate::msgs::*;
 
 pub struct Handler;
 
 #[async_trait]
 impl EventHandler for Handler {
     async fn message(&self, ctx: Context, msg: Message) {
-        if msg.content == "!ping" {
-            if let Err(why) = msg.channel_id.say(&ctx.http, "Pong!").await {
-                println!("Error sending message: {:?}", why);
-            }
+        match msg.content.as_str() {
+            PING_COMMAND => ping(ctx, msg).await,
+            &_ => return,
         }
     }
 

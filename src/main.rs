@@ -1,5 +1,5 @@
-use AccountabilityBotty::configuration::get_configuration;
-use AccountabilityBotty::startup::Application;
+use accountability_botty::configuration::get_configuration;
+use accountability_botty::startup::Application;
 
 #[tokio::main]
 async fn main() -> std::io::Result<()> {

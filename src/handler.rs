@@ -11,7 +11,10 @@ pub struct Handler;
 #[async_trait]
 impl EventHandler for Handler {
     async fn message(&self, ctx: Context, msg: Message) {
-        match msg.content.as_str() {
+        let cmd: Vec<&str> = msg.content.split(' ').collect();
+        
+        println!("MSG: {:?}", msg);
+        match cmd[0] {
             PING_COMMAND => ping(ctx, msg).await,
             &_ => return,
         }

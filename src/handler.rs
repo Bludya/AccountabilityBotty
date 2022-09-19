@@ -11,9 +11,10 @@ pub struct Handler;
 #[async_trait]
 impl EventHandler for Handler {
     async fn message(&self, ctx: Context, msg: Message) {
-        match msg.content.as_str() {
-            PING_COMMAND => ping(ctx, msg).await,
-            &_ => return,
+        if msg.content.starts_with(CHALLENGE_COMMAND) {
+            register_challenge(&ctx, &msg).await;
+        } else if msg.content.starts_with(HELP_COMMAND) {
+            help(&ctx, &msg).await;
         }
     }
 

@@ -18,8 +18,7 @@ impl Application {
 
         let client = run(
             configuration.application.discord_token,
-            connection_pool,
-            configuration.application.base_url,
+            // connection_pool,
         )
         .await?;
 
@@ -38,9 +37,9 @@ impl Application {
 
 pub struct ApplicationBaseUrl(pub String);
 
-async fn run(token: String, db_pool: PgPool, base_url: String) -> Result<Client, std::io::Error> {
-    let db_pool = Data::new(db_pool);
-    let base_url = Data::new(ApplicationBaseUrl(base_url));
+// async fn run(token: String, db_pool: PgPool) -> Result<Client, std::io::Error> {
+async fn run(token: String) -> Result<Client, std::io::Error> {
+    // let db_pool = Data::new(db_pool);
 
     let intents = GatewayIntents::GUILD_MESSAGES | GatewayIntents::MESSAGE_CONTENT;
 
